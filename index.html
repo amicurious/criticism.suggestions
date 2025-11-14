@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kritik dan Saran untuk AMI Curious</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Extracted and Adapted Styles from Provided Code */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #736b23;
+            --secondary: #9ade24;
+            --accent: #f5de3e;
+            --light: #ecf0f1;
+            --dark: #0d0a06;
+            --text: #333;
+            --text-light: #777;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --bronze: #CD7F32;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+            padding: 40px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        section {
+            padding: 40px 0;
+        }
+
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            color: var(--text);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-form {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(154, 222, 36, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .persistent-placeholder {
+            position: absolute;
+            bottom: 2em;
+            left: 15px;
+            right: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: rgba(153, 153, 153, .5);
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="contact" id="contact">
+            <h2>Kritik dan Saran untuk AMI Curious</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p>Bantu kami tingkatkan AMI Curious dengan kritik dan saran Anda.</p>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <textarea id="message" name="message" class="form-control" required></textarea>
+                            <div class="persistent-placeholder">Kritik dan Saran</div>
+                            <div class="error-message" id="messageError">Mohon bagikan kritik dan saran Anda.</div>
+                        </div>
+                        <div class="success-message" id="successMessage">Terima kasih! Pesan Anda telah terkirim dengan sukses.</div>
+                        <button type="submit" class="btn">Kirim</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Form Validation and Submission with JS
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset previous errors
+            document.querySelectorAll('.error-message').forEach(msg => msg.style.display = 'none');
+            document.getElementById('successMessage').style.display = 'none';
+            
+            // Get form data
+            const message = document.getElementById('message').value.trim();
+            
+            let isValid = true;
+            
+            // Validate message
+            if (!message) {
+                document.getElementById('messageError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Simulate form submission (replace with actual API call, e.g., Formspree)
+                console.log('Form Data:', { message });
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Reset form
+                this.reset();
+            }
+        });
+
+        // Real-time validation on input
+        document.getElementById('message').addEventListener('input', function() {
+            const errorEl = document.getElementById('messageError');
+            if (errorEl) errorEl.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
